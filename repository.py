@@ -2,6 +2,8 @@
 from ghapi.all import GhApi
 from registry import WildsRegistry
 from rich import print
+from rich.console import Console
+console = Console(force_terminal=True)
 
 api = GhApi()
 reg = WildsRegistry()
@@ -12,11 +14,11 @@ reg = WildsRegistry()
 def check_for_main(repo):
   repo_gh = api.repos.get("getwilds", repo["name"])
   default = repo_gh['default_branch']
-  if "mains" != default:
-    print(f'[bold red]{repo["name"]}[/bold red] needs a main branch as default; instead got {default}')
+  if "main" != default:
+    console.print(f'[bold red]{repo["name"]}[/bold red] needs a main branch as default; instead got {default}')
     # raise Exception(f'[bold red]{repo["name"]}[/bold red] needs a main branch as default; instead got {default}')
   else:
-    print(f"[bold green]{repo["name"]}[/bold green] all good")
+    console.print(f"[bold green]{repo["name"]}[/bold green] all good")
   # repo = Repository(".")
   # if "mains" not in list(repo.branches.local):
   #   raise Exception(f'main branch not found for {repo}')
