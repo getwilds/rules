@@ -1,0 +1,32 @@
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+name: Check rules
+
+jobs:
+  check-rules:
+    runs-on: ubuntu-latest
+    name: rules
+    strategy:
+      fail-fast: false
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        run: curl -LsSf https://astral.sh/uv/0.4.10/install.sh | sh
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: .python-version
+
+      - name: Install
+        run: uv sync --all-extras --dev
+
+      - name: Check for main branch as default
+        run: uv run repository.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}

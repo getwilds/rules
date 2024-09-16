@@ -1,0 +1,12 @@
+[project]
+name = "rules"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "ghapi>=1.0.6",
+    "pygit2>=1.15.1",
+    "python-dateutil>=2.9.0.post0",
+    "rich>=13.8.1",
+]
