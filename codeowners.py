@@ -15,13 +15,26 @@ reg = WildsRegistry()
 def check_for_codeowners(repo):
     """Returns 0 if rule satisfied, 1 if not satisfied"""
 
+    badge_status = repo["badge_status"]
+    if badge_status not in ["prototype", "stable"]:
+        console.print(
+            (
+                f"[bold yellow]{repo['name']}[/bold yellow] does not need a"
+                f"CODEOWNERS file, badge status [u]{badge_status}[/u]"
+            )
+        )
+        return 0
+
     try:
         codeowners = api.repos.get_content(
             "getwilds", repo["name"], ".github/CODEOWNERS"
         )
     except net.HTTP404NotFoundError:
         console.print(
-            f"[bold red]{repo['name']}[/bold red] does not have a CODEOWNERS file"
+            (
+                f"[bold red]{repo['name']}[/bold red] does not have a CODEOWNERS file"
+                f"badge status [u]{badge_status}[/u]"
+            )
         )
         return 1
 
@@ -34,7 +47,9 @@ def check_for_codeowners(repo):
         )
         return 1
     else:
-        console.print(f"[bold green]{repo['name']}[/bold green] all good")
+        console.print(
+            f"[bold green]{repo['name']}[/bold green] all good, CODEOWNERS file found"
+        )
         return 0
 
 

@@ -1,5 +1,6 @@
-import urllib.request
 import json
+import urllib.request
+
 import dateutil.parser
 
 REGISTRY_URL = "https://getwilds.org/registry/registry.json"
