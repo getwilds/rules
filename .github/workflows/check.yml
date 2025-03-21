@@ -6,14 +6,11 @@ on:
 name: Check rules
 
 jobs:
-  check-rules:
+  setup:
     runs-on: ubuntu-latest
-    name: rules
-    strategy:
-      fail-fast: false
+    name: setup
     env:
       GITHUB_TOKEN: ${{ secrets.GH_PAT }}
-
     steps:
       - uses: actions/checkout@v4
 
@@ -27,11 +24,24 @@ jobs:
         with:
           python-version-file: .python-version
 
+  main-branch:
+    needs: setup
+    runs-on: ubuntu-latest
+    name: main-branch
+    steps:
       - name: Install
         run: uv sync --all-extras --dev
 
       - name: Check for main branch as default
         run: uv run repository.py
+
+  codeowners:
+    needs: setup
+    runs-on: ubuntu-latest
+    name: codeowners
+    steps:
+      - name: Install
+        run: uv sync --all-extras --dev
 
       - name: Check for codeowners file
         run: uv run codeowners.py
