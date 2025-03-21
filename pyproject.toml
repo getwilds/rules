@@ -5,7 +5,14 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "ghapi>=1.0.6",
-    "python-dateutil>=2.9.0.post0",
-    "rich>=13.8.1",
+  "fastcore>=1.7.8",
+  "ghapi>=1.0.6",
+  "python-dateutil>=2.9.0.post0",
+  "rich>=13.8.1",
 ]
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I", "A", "ARG"]
+
+[tool.ruff]
+line-length = 80

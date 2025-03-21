@@ -11,6 +11,8 @@ jobs:
     name: rules
     strategy:
       fail-fast: false
+    env:
+      GITHUB_TOKEN: ${{ secrets.GH_PAT }}
 
     steps:
       - uses: actions/checkout@v4
@@ -30,5 +32,6 @@ jobs:
 
       - name: Check for main branch as default
         run: uv run repository.py
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+
+      - name: Check for codeowners file
+        run: uv run codeowners.py
