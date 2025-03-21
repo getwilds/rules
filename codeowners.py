@@ -19,8 +19,8 @@ def check_for_codeowners(repo):
     if badge_status not in ["prototype", "stable"]:
         console.print(
             (
-                f"[bold yellow]{repo['name']}[/bold yellow] does not need a"
-                f"CODEOWNERS file, badge status [u]{badge_status}[/u]"
+                f"[bold yellow]{repo['name']}[/bold yellow] does not need a "
+                f"CODEOWNERS file - badge status [u]{badge_status}[/u]"
             )
         )
         return 0
@@ -32,7 +32,7 @@ def check_for_codeowners(repo):
     except net.HTTP404NotFoundError:
         console.print(
             (
-                f"[bold red]{repo['name']}[/bold red] does not have a CODEOWNERS file"
+                f"[bold red]{repo['name']}[/bold red] does not have a CODEOWNERS file - "
                 f"badge status [u]{badge_status}[/u]"
             )
         )
@@ -48,7 +48,10 @@ def check_for_codeowners(repo):
         return 1
     else:
         console.print(
-            f"[bold green]{repo['name']}[/bold green] all good, CODEOWNERS file found"
+            (
+                f"[bold green]{repo['name']}[/bold green] all good, CODEOWNERS file found"
+                f" - badge status [u]{badge_status}[/u]"
+            )
         )
         return 0
 
