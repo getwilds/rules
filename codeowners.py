@@ -13,7 +13,7 @@ reg = WildsRegistry()
 
 
 def b_yel(x):
-    return f"[bold sky_blue3]ℹ {x}[/bold sky_blue3]"
+    return f"[bold cornflower_blue]ℹ {x}[/bold cornflower_blue]"
 
 
 def b_red(x):
