@@ -12,6 +12,22 @@ api = GhApi()
 reg = WildsRegistry()
 
 
+def b_yel(x):
+    return f"[bold sky_blue3]ℹ {x}[/bold sky_blue3]"
+
+
+def b_red(x):
+    return f"[bold red]✗ {x}[/bold red]"
+
+
+def b_green(x):
+    return f"[bold green]✓ {x}[/bold green]"
+
+
+def u(x):
+    return f"[underline]{x}[/underline]"
+
+
 def check_for_codeowners(repo):
     """Returns 0 if rule satisfied, 1 if not satisfied"""
 
@@ -19,8 +35,8 @@ def check_for_codeowners(repo):
     if badge_status not in ["prototype", "stable"]:
         console.print(
             (
-                f"[bold yellow]{repo['name']}[/bold yellow] does not need a "
-                f"CODEOWNERS file - badge status [u]{badge_status}[/u]"
+                f"{b_yel(repo['name'])} does not need a CODEOWNERS file - "
+                f"badge status {u(badge_status)}"
             )
         )
         return 0
@@ -32,8 +48,8 @@ def check_for_codeowners(repo):
     except net.HTTP404NotFoundError:
         console.print(
             (
-                f"[bold red]{repo['name']}[/bold red] does not have a CODEOWNERS file - "
-                f"badge status [u]{badge_status}[/u]"
+                f"{b_red(repo['name'])} does not have a CODEOWNERS file - "
+                f"badge status {u(badge_status)}"
             )
         )
         return 1
@@ -43,14 +59,15 @@ def check_for_codeowners(repo):
 
     if len(users) < 2:
         console.print(
-            f"[bold red]{repo['name']}[/bold red] needs 2-3 codeowners; instead got {len(users)}"
+            f"{b_red(repo['name'])} needs 2-3 codeowners; "
+            "instead got {len(users)}"
         )
         return 1
     else:
         console.print(
             (
-                f"[bold green]{repo['name']}[/bold green] all good, CODEOWNERS file found"
-                f" - badge status [u]{badge_status}[/u]"
+                f"{b_green(repo['name'])} all good, CODEOWNERS file found - "
+                f"badge status {u(badge_status)}"
             )
         )
         return 0
