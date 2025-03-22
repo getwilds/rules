@@ -13,7 +13,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        rule: ["repository.py", "codeowners.py"]
+        rule: ["main_branch_default.py", "codeowners.py"]
+    name: Rule ${{ matrix.rule }}
     steps:
       - uses: actions/checkout@v4
 
@@ -30,5 +31,5 @@ jobs:
       - name: Install dependencies
         run: uv sync --all-extras --dev
 
-      - name: Check for main branch as default
+      - name: Rule check
         run: uv run ${{ matrix.rule }}
